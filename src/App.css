@@ -6,7 +6,9 @@
     align-items: center;
 };
 
-.TextField {
+.dashboardDiv {
+  display: flex;
+  justify-content: center;
 
 }
 
