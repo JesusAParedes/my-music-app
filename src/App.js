@@ -27,16 +27,16 @@ export default function ButtonAppBar() {
     <div>
       {<NavBar />}
       {loggedIn ? <Dashboard /> :
-      <form className='form' style={{textAlign: 'center', display: 'flex'}}>
+      <form className='form'>
       <TextField id="standard-basic" label="Username*" variant="standard" className='TextField' />
       
       <TextField id="standard-basic" label="Password*" variant="standard" className='TextField' />
       <ThemeProvider theme={theme}>
       
       <Button 
+        className='loginButton'
       style={{backgroundColor: '#1976d2', padding: '0px 75px'}} 
       variant='contained' 
-      className='Login'
       onClick={handleClick}
       >Login</Button>
       </ThemeProvider>
