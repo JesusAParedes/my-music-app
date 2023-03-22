@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -12,6 +12,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import './Dashboard.css';
 
+
+
 function Dashboard () {
     const [online, setOnline] = useState(false);
     const [volume, setVolume] = useState(20);
@@ -20,11 +22,27 @@ function Dashboard () {
 
     const handleClick = (e) => {
       setOnline(e.target.checked);
+
+      e.target.checked === false ? setNotifications(["Your application is offline. You won't be able to share or stream music to other devices."]) : setNotifications([""]);
+      
     };
 
     const handleChange = (e) => {
-      e.target.value > 3 || e.target.value === 0 ? setVolume(e.target.value) : setQuality(e.target.value);      
+      e.target.value > 3 || e.target.value === 0 ? setVolume(e.target.value) : setQuality(e.target.value);
+
+      if(e.target.value === 1) {
+        setNotifications(["Music quality is degraded. Increase quality if your connection allows it."])
+      }
+      else if(e.target.value >= 80) {
+        setNotifications(["Listening to music at a high volume could cause long-term hearing loss."])
+      } 
+      else {
+        setNotifications([""])}
     };
+
+   useEffect = (notifications) => {
+    
+   }
 
     return (
         <div className='mainDiv'>
@@ -35,7 +53,7 @@ function Dashboard () {
             <Card 
             className='musicDashboard' 
             variant='outlined' 
-            sx={{ minWidth: 275 }} 
+            sx={{ width: 240, height: 175 }} 
             >
       <CardContent>
         <Typography variant="h5" component="div">
@@ -57,7 +75,7 @@ function Dashboard () {
     <Card 
     className='musicDashboard'
     variant='outlined' 
-    sx={{ minWidth: 285 }} 
+    sx={{ width: 250, height: 175 }} 
     >
       <CardContent>
         <Typography variant="h5" component="div">
@@ -87,21 +105,21 @@ function Dashboard () {
     <Card 
     className='musicDashboard'
     variant='outlined' 
-    sx={{ minWidth: 275 }} 
+    sx={{ width: 250, height: 175 }} 
     >
       <CardContent>
         <Typography variant="h5" component="div">
         Sound Quality
         </Typography>
         <Typography variant="body2">
-          Manually Control the music quality in event of poor connection.
+          Manually control the music quality in event of poor connection.
           <br />
         </Typography>
       </CardContent>
       <CardActions>
       <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel style={{ marginBottom: '50%'}}> Quality </InputLabel>
+      <FormControl sx={{ m: -1, width: 240 }}>
+        <InputLabel sx={{m: -1 }}style={{ marginBottom: '50%'}}> Quality </InputLabel>
         <Select
         labelId='soundQuality'
         value={quality}
