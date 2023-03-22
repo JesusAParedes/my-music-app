@@ -35,7 +35,7 @@ export default function ButtonAppBar() {
       
       <Button 
         className='loginButton'
-      style={{backgroundColor: '#1976d2', padding: '0px 75px'}} 
+      style={{ padding: '0px 75px' }} 
       variant='contained' 
       onClick={handleClick}
       >Login</Button>

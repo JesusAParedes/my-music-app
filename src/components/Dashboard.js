@@ -12,20 +12,19 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import './Dashboard.css';
 
-const label = { inputProps: { 'aria-label': 'Switch demo' } };
-
-function valuetext(volume) {
-    return volume;
-  }
-
 function Dashboard () {
     const [online, setOnline] = useState(false);
-    const [volume, setVolume] = useState(0);
+    const [volume, setVolume] = useState(20);
     const [quality, setQuality] = useState(2);
+    const [notifications, setNotifications] = useState([]);
+
+    const handleClick = (e) => {
+      setOnline(e.target.checked);
+    };
 
     const handleChange = (e) => {
-        setQuality(e.target.value);
-    }
+      e.target.value > 3 || e.target.value === 0 ? setVolume(e.target.value) : setQuality(e.target.value);      
+    };
 
     return (
         <div className='mainDiv'>
@@ -48,7 +47,10 @@ function Dashboard () {
         </Typography>
       </CardContent>
       <CardActions>
-      <Switch {...label} defaultChecked />
+      <Switch
+      checked={online}
+      onClick={handleClick}
+       />
       </CardActions>
     </Card>
 
@@ -70,13 +72,13 @@ function Dashboard () {
       <Box sx={{ width: 300 }}>
       <Slider
         aria-label="Volume"
-        defaultValue={20}
-        getAriaValueText={valuetext}
+        value={volume}
         valueLabelDisplay="auto"
         step={10}
         marks
         min={0}
         max={100}
+        onChange={handleChange}
       />
     </Box>
       </CardActions>
@@ -116,6 +118,9 @@ function Dashboard () {
         </div>
         <div>
         <h2>System Notifications</h2>
+        {notifications.map((notificaton, index) => {
+          return <p key={index}>{notificaton}</p>}
+          )}
         </div>
         </div>
     )
