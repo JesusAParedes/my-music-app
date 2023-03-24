@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -12,38 +12,19 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import './Dashboard.css';
 
-
-
 function Dashboard () {
     const [online, setOnline] = useState(false);
     const [volume, setVolume] = useState(20);
-    const [quality, setQuality] = useState(2);
-    const [notifications, setNotifications] = useState([]);
+    const [quality, setQuality] = useState(2);    
 
     const handleClick = (e) => {
       setOnline(e.target.checked);
-
-      e.target.checked === false ? setNotifications(["Your application is offline. You won't be able to share or stream music to other devices."]) : setNotifications([""]);
-      
     };
 
     const handleChange = (e) => {
       e.target.value > 3 || e.target.value === 0 ? setVolume(e.target.value) : setQuality(e.target.value);
-
-      if(e.target.value === 1) {
-        setNotifications(["Music quality is degraded. Increase quality if your connection allows it."])
-      }
-      else if(e.target.value >= 80) {
-        setNotifications(["Listening to music at a high volume could cause long-term hearing loss."])
-      } 
-      else {
-        setNotifications([""])}
     };
-
-   useEffect = (notifications) => {
-    
-   }
-
+  
     return (
         <div className='mainDiv'>
             <h1>Welcome User!</h1>
@@ -136,9 +117,9 @@ function Dashboard () {
         </div>
         <div>
         <h2>System Notifications</h2>
-        {notifications.map((notificaton, index) => {
-          return <p key={index}>{notificaton}</p>}
-          )}
+        <p>{volume >= 80 && "Listening to music at a high volume could cause long-term hearing loss."}</p>
+        <p>{online === false && "Your application is offline. You won't be able to share or stream music to other devices."}</p>
+        <p>{quality === 1 && "Music quality is degraded. Increase quality if your connection allows it."}</p>
         </div>
         </div>
     )
